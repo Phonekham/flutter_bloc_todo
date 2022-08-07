@@ -5,7 +5,8 @@ abstract class HomeState {
 }
 
 class HomeInitial extends HomeState {
-  HomeInitial();
+  final String? error;
+  HomeInitial({this.error});
   @override
   List<Object?> get props => [];
 }

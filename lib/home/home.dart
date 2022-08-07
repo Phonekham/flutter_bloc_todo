@@ -28,28 +28,62 @@ class LoginPage extends StatelessWidget {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => TodosPage(username: state.username)));
             }
+            if (state is HomeInitial) {
+              if (state.error != null) {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: Text("Error"),
+                          content: Text(state.error!),
+                        ));
+              }
+            }
           },
           builder: (context, state) {
-            if (state is HomeInitial) {
-              return Column(
-                children: [
-                  TextField(
-                    controller: usernameField,
-                    decoration: InputDecoration(labelText: 'Username'),
-                  ),
-                  TextField(
-                    controller: passwordField,
-                    obscureText: true,
-                    decoration: InputDecoration(labelText: 'password'),
-                  ),
-                  ElevatedButton(
-                      onPressed: () => BlocProvider.of<HomeBloc>(context).add(
-                          LoginEvent(usernameField.text, passwordField.text)),
-                      child: Text('Login'))
-                ],
-              );
-            }
-            return Container();
+            // if (state is HomeInitial) {
+            return Column(
+              children: [
+                TextField(
+                  controller: usernameField,
+                  decoration: InputDecoration(labelText: 'Username'),
+                ),
+                TextField(
+                  controller: passwordField,
+                  obscureText: true,
+                  decoration: InputDecoration(labelText: 'password'),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        onPressed: () => BlocProvider.of<HomeBloc>(context).add(
+                          LoginEvent(usernameField.text, passwordField.text),
+                        ),
+                        child: Text('LOGIN'),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          BlocProvider.of<HomeBloc>(context).add(
+                            RegisterAccountEvent(
+                                usernameField.text, passwordField.text),
+                          );
+                        },
+                        child: Text('REGISTER'),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            );
+            // }
+            // return Container(
+            //   child: Text('text'),
+            // );
           },
         ),
       ),

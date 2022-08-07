@@ -33,7 +33,6 @@ class TodoService {
     final taskToEdit = _tasks.values.firstWhere(
         (element) => element.task == task && element.user == username);
     final index = taskToEdit.key as int;
-    await _tasks.put(
-        index, Task(username, task, completed ?? taskToEdit.completed));
+    await _tasks.put(index, Task(username, task, !taskToEdit.completed));
   }
 }

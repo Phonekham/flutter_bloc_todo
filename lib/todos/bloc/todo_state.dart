@@ -6,14 +6,13 @@ abstract class TodoState extends Equatable {
 
 class TodoInitial extends TodoState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
 class TodoLoadedState extends TodoState {
   final List<Task> tasks;
-  TodoLoadedState(this.tasks);
+  final String username;
+  TodoLoadedState(this.tasks, this.username);
   @override
-  // TODO: implement props
-  List<Object?> get props => [tasks];
+  List<Object?> get props => [tasks, username];
 }
